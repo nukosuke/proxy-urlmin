@@ -1,21 +1,34 @@
-package controllers
+package main
+
+import (
+    "net/url"
+    "github.com/gin-gonic/gin"
+    _ "github.com/gin-gonic/gin/binding"
+)
 
 type URLController struct {
+    //redis connection
+    //codec
+}
+
+func (this *URLController) Encode(c *gin.Context) {
     
 }
 
-func (this *URLController) GetEncode() {
+func (this *URLController) Decode(c *gin.Context) {
     
 }
 
-func (this *URLController) PostEncode() {
+func (this *URLController) validate(url_string string) bool {
+    var isValid bool
     
-}
-
-func (this *URLController) GetDecode() {
+    _, err := url.Parse(url_string)
     
-}
-
-func (this *URLController) PostDecode() {
+    if err != nil {
+        isValid = false
+    } else {
+        isValid = true
+    }
     
+    return isValid
 }

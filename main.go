@@ -1,35 +1,35 @@
 package main
+
 import (
     "net/http"
     "github.com/gin-gonic/gin"
-    "github.com/gin-gonic/gin/binding"
-    "./controllers"
 )
 
 func main() {
     router := gin.Default()
+    
+    //TODO:
+    // create redis connection
+    // create codec instance
+    //codec := 
 
     // check wether server is alive
     router.GET("/ping", func(c *gin.Context) {
         c.JSON(http.StatusOK, gin.H{
             "status": http.StatusOK,
-            "message": "pong"
+            "message": "pong",
         })
     })
     
     // encode API
-    router.GET("/encode", func(c *gin.Context) {
-        c.JSON(http.StatusOK)
-    })
     router.POST("/encode", func(c *gin.Context) {
-        
+        c.JSON(http.StatusOK, gin.H{
+            
+        })
     })
 
-    
     // decode API
-    router.GET("/decode", func(c *gin.Context) {
-        
-    })
+    // ^https?://domain.com/:encoded
     router.POST("/decode", func(c *gin.Context) {
         
     })
