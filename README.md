@@ -13,6 +13,6 @@ $ go build
 ```
 
 # License
-Copyright (c) 2016 nukosuke
-Released under the MIT license
+Copyright (c) 2016 nukosuke  
+Released under the MIT license  
 http://opensource.org/licenses/mit-license.php
