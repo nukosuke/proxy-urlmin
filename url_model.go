@@ -1,7 +1,7 @@
 package main
 
 import (
-    _ "os"
+	_ "os"
 )
 
 //URL ID = 10桁
@@ -10,44 +10,44 @@ const URLCharacter = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 const URLAvailable = 69
 
 type URL struct {
-    index [10]int8 //0~68
+	index [10]int8 //0~68
 }
 
 func NewURL() *URL {
-    this := new(URL)
-    return this
+	this := new(URL)
+	return this
 }
 
 func (this *URL) Save(url string) string {
-    id := ""
-    for i:=9; i>=0; i-- {
-        id += string(URLCharacter[this.index[i]])
-    }
-    
-    isCarry := false
-    
-    this.index[0]++
-    if this.index[0] >= URLAvailable {
-        this.index[0] -= URLAvailable
-        isCarry = true
-    }
-    
-    for i:=1; i<10; i++ {
-        if isCarry {
-            this.index[i]++
-            isCarry = false
-        }
-        
-        if this.index[i] >= URLAvailable {
-            this.index[i] -= URLAvailable
-            isCarry = true
-        }
-    }
-    
-    return id
+	id := ""
+	for i := 9; i >= 0; i-- {
+		id += string(URLCharacter[this.index[i]])
+	}
+
+	isCarry := false
+
+	this.index[0]++
+	if this.index[0] >= URLAvailable {
+		this.index[0] -= URLAvailable
+		isCarry = true
+	}
+
+	for i := 1; i < 10; i++ {
+		if isCarry {
+			this.index[i]++
+			isCarry = false
+		}
+
+		if this.index[i] >= URLAvailable {
+			this.index[i] -= URLAvailable
+			isCarry = true
+		}
+	}
+
+	return id
 }
 
 func (this *URL) Find(url string) {
-    //find from redis
-    //return 
+	//find from redis
+	//return
 }

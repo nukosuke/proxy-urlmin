@@ -1,41 +1,35 @@
 package main
 
 import (
-    "net/http"
-    "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func main() {
-    router := gin.Default()
-    
-    //TODO:
-    // create redis connection
-    // create codec instance
-    //codec := 
-    var ctrl = NewURLController()
-    
-    // check wether server is alive
-    router.GET("/ping", func(c *gin.Context) {
-        c.JSON(http.StatusOK, gin.H{
-            "status": http.StatusOK,
-            "message": "pong",
-        })
-    })
-    
-    // encode API
-    router.GET("/encode", ctrl.Encode)
-    
-    router.POST("/encode", func(c *gin.Context) {
-        c.JSON(http.StatusOK, gin.H{
-            
-        })
-    })
+	router := gin.Default()
 
-    // decode API
-    // ^https?://domain.com/:encoded
-    router.POST("/decode", func(c *gin.Context) {
-        
-    })
-    
-    router.Run()
+	//TODO:
+	// create redis connection
+
+	// NewURLController(redis)
+	var ctrl = NewURLController()
+
+	// ping API
+	router.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"status":  http.StatusOK,
+			"message": "pong",
+		})
+	})
+
+	// encode API
+	router.GET("/encode", ctrl.Encode)
+	router.POST("/encode", ctrl.Encode)
+	router.POST("/encode/multi", ctrl.MultiEncode)
+
+	// decode API
+	router.POST("/decode", ctrl.Decode)
+	router.POST("/decode/multi", ctrl.MultiDecode)
+
+	router.Run()
 }
