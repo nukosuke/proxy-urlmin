@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "os"
+	"net/url"
 )
 
 //URL ID = 10桁
@@ -50,4 +51,18 @@ func (this *URL) Save(url string) string {
 func (this *URL) Find(url string) {
 	//find from redis
 	//return
+}
+
+func (this *URL) validate(url_string string) bool {
+	var isValid bool
+
+	_, err := url.Parse(url_string)
+
+	if err != nil {
+		isValid = false
+	} else {
+		isValid = true
+	}
+
+	return isValid
 }

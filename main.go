@@ -7,12 +7,19 @@ import (
 
 func main() {
 	router := gin.Default()
-
+	router.LoadHTMLFiles("index.html")
 	//TODO:
 	// create redis connection
 
 	// NewURLController(redis)
 	var ctrl = NewURLController()
+
+	// index page
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"title": "proxy-urlmin",
+		})
+	})
 
 	// ping API
 	router.GET("/ping", func(c *gin.Context) {
@@ -23,7 +30,6 @@ func main() {
 	})
 
 	// encode API
-	router.GET("/encode", ctrl.Encode)
 	router.POST("/encode", ctrl.Encode)
 	router.POST("/encode/multi", ctrl.MultiEncode)
 

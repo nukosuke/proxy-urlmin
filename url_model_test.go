@@ -6,7 +6,7 @@ import (
 
 func TestSave(t *testing.T) {
 	m := NewURL()
-	result := m.Encode("http://example.com")
+	result := m.Save("http://example.com")
 	expect := "aaaaaaaaaa"
 
 	if result != expect {

@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin/binding"
 	"net/http"
-	"net/url"
 )
 
 type URLController struct {
@@ -21,7 +20,11 @@ func NewURLController() *URLController {
 
 func (this *URLController) Encode(c *gin.Context) {
 	//TODO: read & validate request
-	c.String(http.StatusOK, this.url.Save("http://example.com")) //TODO req["url"]
+	var json EncodeRequest
+	if c.BindJSON(&json) == nil {
+		c.String(http.StatusOK, json.Url + ":" + this.url.Save("http://example.com")) //TODO req["url"]
+	}
+	// else { invalid request }
 }
 
 func (this *URLController) MultiEncode(c *gin.Context) {
@@ -34,18 +37,4 @@ func (this *URLController) Decode(c *gin.Context) {
 
 func (this *URLController) MultiDecode(c *gin.Context) {
 	c.String(http.StatusOK, "multi decode")
-}
-
-func (this *URLController) validate(url_string string) bool {
-	var isValid bool
-
-	_, err := url.Parse(url_string)
-
-	if err != nil {
-		isValid = false
-	} else {
-		isValid = true
-	}
-
-	return isValid
 }

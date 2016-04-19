@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ .title }}</title>
+</head>
+<body>
+    <h1>proxy-urlmin</h1>
+    <form id="url-form" action="">
+        <input type="text" name="url"/>
+        <input id="url-post-btn" type="submit" value="Submit"/>
+    </form>
+    <ul>
+        <li><a href="https://github.com/nukosuke/proxy-urlmin">github</a></li>
+    </ul>
+    <p>copyright &copy; 2016 nukosuke</p>
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        document.getElementById('url-post-btn').addEventListener(
+            'click',
+            function(e) {
+                e.preventDefault();
+                console.log('clicked!')
+            },
+            false
+        );
+    </script>
+</body>    
+</html>
