@@ -1,6 +1,7 @@
 package main
 
 import (
+    "net/http"
     "net/url"
     "github.com/gin-gonic/gin"
     _ "github.com/gin-gonic/gin/binding"
@@ -9,10 +10,18 @@ import (
 type URLController struct {
     //redis connection
     //codec
+    url *URL
+}
+
+func NewURLController() *URLController {
+    this := new(URLController)
+    this.url = NewURL()
+    return this
 }
 
 func (this *URLController) Encode(c *gin.Context) {
-    
+    //TODO: read & validate request
+    c.String(http.StatusOK, this.url.Save("http://example.com")) //TODO req["url"]
 }
 
 func (this *URLController) Decode(c *gin.Context) {

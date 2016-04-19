@@ -14,8 +14,8 @@ type URL struct {
 }
 
 func NewURL() *URL {
-    u := new(URL)
-    return u
+    this := new(URL)
+    return this
 }
 
 func (this *URL) Save(url string) string {
