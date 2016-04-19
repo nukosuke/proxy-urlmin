@@ -12,7 +12,8 @@ func main() {
     // create redis connection
     // create codec instance
     //codec := 
-
+    var u = NewURL()
+    
     // check wether server is alive
     router.GET("/ping", func(c *gin.Context) {
         c.JSON(http.StatusOK, gin.H{
@@ -22,6 +23,10 @@ func main() {
     })
     
     // encode API
+    router.GET("/encode", func(c *gin.Context) {
+        c.String(http.StatusOK, u.Save("http://example.com"))
+    })
+    
     router.POST("/encode", func(c *gin.Context) {
         c.JSON(http.StatusOK, gin.H{
             
