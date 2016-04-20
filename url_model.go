@@ -1,8 +1,8 @@
 package main
 
 import (
-	_ "os"
 	"net/url"
+	_ "os"
 )
 
 //URL ID = 10桁

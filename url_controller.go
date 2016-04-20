@@ -23,11 +23,11 @@ func (this *URLController) Encode(c *gin.Context) {
 	if c.BindJSON(&json) == nil {
 		c.JSON(http.StatusOK, gin.H{
 			"status": http.StatusOK,
-			"url": this.url.Save(json.Url),
+			"url":    this.url.Save(json.Url),
 		})
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"status": http.StatusBadRequest,
+			"status":  http.StatusBadRequest,
 			"message": "Bad Request",
 		})
 	}
@@ -38,14 +38,14 @@ func (this *URLController) MultiEncode(c *gin.Context) {
 	if c.BindJSON(&json) == nil {
 		//TODO:
 		//map(json.Urls, func(u) { this.url.Save(u) });
-		
+
 		c.JSON(http.StatusOK, gin.H{
 			"status": http.StatusOK,
-			"urls": json.Urls,
+			"urls":   json.Urls,
 		})
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"status": http.StatusBadRequest,
+			"status":  http.StatusBadRequest,
 			"message": "Bad Request",
 		})
 	}
@@ -56,13 +56,13 @@ func (this *URLController) Decode(c *gin.Context) {
 	if c.BindJSON(&json) == nil {
 		c.JSON(http.StatusOK, gin.H{
 			"status": http.StatusOK,
-			"url": "http://example.com",
+			"url":    "http://example.com",
 		})
 	}
 	//this.url.Find()
 }
 
 func (this *URLController) MultiDecode(c *gin.Context) {
-	
+
 	c.String(http.StatusOK, "multi decode")
 }
