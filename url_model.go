@@ -1,8 +1,7 @@
 package main
 
 import (
-	"net/url"
-	_ "os"
+	validator "github.com/asaskevich/govalidator"
 )
 
 //URL ID = 10桁
@@ -53,16 +52,6 @@ func (this *URL) Find(url string) {
 	//return
 }
 
-func (this *URL) validate(url_string string) bool {
-	var isValid bool
-
-	_, err := url.Parse(url_string)
-
-	if err != nil {
-		isValid = false
-	} else {
-		isValid = true
-	}
-
-	return isValid
+func (this *URL) Validate(url_string string) bool {
+	return validator.IsURL(url_string)
 }
