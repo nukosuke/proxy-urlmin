@@ -22,6 +22,9 @@ func NewURL(redis_connection redis.Conn) *URL {
 		log.Fatal("Invalid Redis Connection")
 	}
 	
+	//TODO
+	// load start_id from redis to this.index
+	
 	this := new(URL)
 	this.conn = redis_connection
 	return this
