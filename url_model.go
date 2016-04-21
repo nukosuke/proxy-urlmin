@@ -78,16 +78,11 @@ func (this *URL) Find(id string) (string, error) {
 	}
 }
 
-func (this *URL) FindByUrl(url string) {
-	//
-}
-
 func (this *URL) validateUrl(url_string string) bool {
 	return validator.IsURL(url_string)
 }
 
-
-// TODO
 func (this *URL) validateId(url_id string) bool {
+	//TODO RegExp("^(0-9a-zA-Z)*$")
 	return true
 }
