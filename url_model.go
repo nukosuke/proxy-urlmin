@@ -68,13 +68,14 @@ func (this *URL) Save(url string) (string, error) {
 	
 }
 
-func (this *URL) FindById(url string) (string, error) {
+func (this *URL) Find(id string) (string, error) {
 	//TODO: validate id
-	//find from redis
-	//if notfound {
-	//	return "", errors.New("Not Found")
-	//}
-	return "", nil
+	res, err := redis.String(this.conn.Do("GET", id))
+	if err != nil {
+		return "", errors.New("Failed to GET url")
+	} else {
+		return res, nil
+	}
 }
 
 func (this *URL) FindByUrl(url string) {
