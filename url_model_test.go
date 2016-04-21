@@ -6,10 +6,12 @@ import (
 
 func TestSave(t *testing.T) {
 	m := NewURL()
-	result := m.Save("http://example.com")
+	result, err := m.Save("http://example.com")
 	expect := "aaaaaaaaaa"
 
-	if result != expect {
+	if err != nil {
+		t.Errorf("error occured in URL.Save()")
+	} else if result != expect {
 		t.Errorf("got %v\nwant %v", result, expect)
 	}
 }
