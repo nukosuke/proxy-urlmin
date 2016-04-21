@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/garyburd/redigo/redis"
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin/binding"
-	"github.com/garyburd/redigo/redis"
 	"net/http"
 )
 
@@ -71,7 +71,7 @@ func (this *URLController) Decode(c *gin.Context) {
 	var json DecodeRequest
 	if c.BindJSON(&json) == nil {
 		//res, err := URL.Find(json.Url)
-		
+
 		c.JSON(http.StatusOK, gin.H{
 			"status": http.StatusOK,
 			"url":    json.Url,

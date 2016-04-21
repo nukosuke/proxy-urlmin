@@ -1,10 +1,9 @@
 package main
 
 import (
-	"testing"
 	"github.com/garyburd/redigo/redis"
+	"testing"
 )
-
 
 func TestSave(t *testing.T) {
 	//TODO beforeにまとめる
@@ -12,7 +11,7 @@ func TestSave(t *testing.T) {
 	if err != nil {
 		t.Errorf("failed to connect redis")
 	}
-	
+
 	m := NewURL(conn)
 	result, err := m.Save("http://example.com")
 	expect := "aaaaaaaaaa"

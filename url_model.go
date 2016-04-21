@@ -2,9 +2,9 @@ package main
 
 import (
 	"errors"
-	"log"
 	validator "github.com/asaskevich/govalidator"
 	"github.com/garyburd/redigo/redis"
+	"log"
 )
 
 //URL ID = 10桁
@@ -14,17 +14,17 @@ const URLAvailable = 69
 
 type URL struct {
 	index [10]int8 //0~68
-	conn redis.Conn
+	conn  redis.Conn
 }
 
 func NewURL(redis_connection redis.Conn) *URL {
 	if redis_connection == nil {
 		log.Fatal("Invalid Redis Connection")
 	}
-	
+
 	//TODO
 	// load start_id from redis to this.index
-	
+
 	this := new(URL)
 	this.conn = redis_connection
 	return this
@@ -66,9 +66,8 @@ func (this *URL) Save(url string) (string, error) {
 		return "", errors.New("Failed to save url to KVS")
 	} else {
 		return id, nil
-	} 
-	
-	
+	}
+
 }
 
 func (this *URL) Find(id string) (string, error) {
