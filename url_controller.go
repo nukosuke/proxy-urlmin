@@ -21,10 +21,11 @@ func (this *URLController) Encode(c *gin.Context) {
 	//TODO: read & validate request
 	var json EncodeRequest
 	if c.BindJSON(&json) == nil {
-		if this.url.Validate(json.Url) {
+		res, err := this.url.Save(json.Url)
+		if err == nil {
 			c.JSON(http.StatusOK, gin.H{
 				"status": http.StatusOK,
-				"url":    this.url.Save(json.Url),
+				"url":    res,
 			})
 		} else {
 			c.JSON(http.StatusBadRequest, gin.H{
@@ -46,7 +47,8 @@ func (this *URLController) MultiEncode(c *gin.Context) {
 		//TODO:
 		// move validation method to URL model
 		for _, value := range json.Urls {
-			if !this.url.Validate(value) {
+			_, err := this.url.Save(value)
+			if err != nil {
 				goto ERROR
 			}
 		}

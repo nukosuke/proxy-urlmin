@@ -2,6 +2,7 @@ package main
 
 import (
 	validator "github.com/asaskevich/govalidator"
+	"errors"
 )
 
 //URL ID = 10桁
@@ -18,7 +19,11 @@ func NewURL() *URL {
 	return this
 }
 
-func (this *URL) Save(url string) string {
+func (this *URL) Save(url string) (string, error) {
+	if !this.validate(url) {
+		return "", errors.New("URL validation error")
+	}
+	
 	id := ""
 	for i := 9; i >= 0; i-- {
 		id += string(URLCharacter[this.index[i]])
@@ -44,14 +49,15 @@ func (this *URL) Save(url string) string {
 		}
 	}
 
-	return id
+	return id, nil
 }
 
 func (this *URL) Find(url string) {
+	//TODO: validate id
 	//find from redis
 	//return
 }
 
-func (this *URL) Validate(url_string string) bool {
+func (this *URL) validate(url_string string) bool {
 	return validator.IsURL(url_string)
 }
