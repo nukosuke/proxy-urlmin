@@ -57,10 +57,7 @@ func (this *URLController) MultiEncode(c *gin.Context) {
 			"urls":   json.Urls,
 		})
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"status":  http.StatusBadRequest,
-			"message": "Bad Request",
-		})
+		goto ERROR
 	}
 
 ERROR:
