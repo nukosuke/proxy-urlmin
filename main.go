@@ -19,7 +19,7 @@ func main() {
 	defer conn.Close()
 
 	// create controllers
-	var ctrl = NewURLController(&conn)
+	var ctrl = NewURLController(conn)
 
 	// index page
 	router.GET("/", func(c *gin.Context) {

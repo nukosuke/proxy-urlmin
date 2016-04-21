@@ -11,7 +11,7 @@ type URLController struct {
 	url *URL
 }
 
-func NewURLController(redis_connection *redis.Conn) *URLController {
+func NewURLController(redis_connection redis.Conn) *URLController {
 	this := new(URLController)
 	this.url = NewURL(redis_connection)
 	return this

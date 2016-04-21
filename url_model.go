@@ -14,10 +14,10 @@ const URLAvailable = 69
 
 type URL struct {
 	index [10]int8 //0~68
-	conn *redis.Conn
+	conn redis.Conn
 }
 
-func NewURL(redis_connection *redis.Conn) *URL {
+func NewURL(redis_connection redis.Conn) *URL {
 	if redis_connection == nil {
 		log.Fatal("Invalid Redis Connection")
 	}
@@ -58,7 +58,7 @@ func (this *URL) Save(url string) (string, error) {
 		}
 	}
 
-	_, err := this.conn.Do("SET", *id, *url)
+	_, err := this.conn.Do("SET", id, url)
 	if err != nil {
 		return "", errors.New("Failed to save url to KVS")
 	} else {

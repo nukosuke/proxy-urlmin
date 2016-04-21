@@ -7,7 +7,13 @@ import (
 
 
 func TestSave(t *testing.T) {
-	m := NewURL(nil)
+	//TODO beforeにまとめる
+	conn, err := redis.Dial("tcp", ":6379")
+	if err != nil {
+		t.Errorf("failed to connect redis")
+	}
+	
+	m := NewURL(conn)
 	result, err := m.Save("http://example.com")
 	expect := "aaaaaaaaaa"
 
