@@ -5,7 +5,7 @@ import (
 )
 
 func TestSave(t *testing.T) {
-	m := NewURL()
+	m := NewURL(nil)
 	result, err := m.Save("http://example.com")
 	expect := "aaaaaaaaaa"
 
