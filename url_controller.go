@@ -47,10 +47,12 @@ func (this *URLController) MultiEncode(c *gin.Context) {
 		//TODO:
 		// move validation method to URL model
 		for _, value := range json.Urls {
-			_, err := this.url.Save(value)
+			res, err := this.url.Save(value)
 			if err != nil {
 				goto ERROR
 			}
+			
+			value = res
 		}
 
 		c.JSON(http.StatusOK, gin.H{
