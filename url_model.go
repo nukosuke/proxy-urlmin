@@ -1,8 +1,8 @@
 package main
 
 import (
-	validator "github.com/asaskevich/govalidator"
 	"errors"
+	validator "github.com/asaskevich/govalidator"
 )
 
 //URL ID = 10桁
@@ -23,7 +23,7 @@ func (this *URL) Save(url string) (string, error) {
 	if !this.validate(url) {
 		return "", errors.New("URL validation error")
 	}
-	
+
 	id := ""
 	for i := 9; i >= 0; i-- {
 		id += string(URLCharacter[this.index[i]])

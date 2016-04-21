@@ -18,7 +18,6 @@ func NewURLController() *URLController {
 }
 
 func (this *URLController) Encode(c *gin.Context) {
-	//TODO: read & validate request
 	var json EncodeRequest
 	if c.BindJSON(&json) == nil {
 		res, err := this.url.Save(json.Url)
@@ -29,7 +28,7 @@ func (this *URLController) Encode(c *gin.Context) {
 			})
 		} else {
 			c.JSON(http.StatusBadRequest, gin.H{
-				"status": http.StatusBadRequest,
+				"status":  http.StatusBadRequest,
 				"message": "Invalid URL Schema",
 			})
 		}
@@ -44,14 +43,12 @@ func (this *URLController) Encode(c *gin.Context) {
 func (this *URLController) MultiEncode(c *gin.Context) {
 	var json MultiEncodeRequest
 	if c.BindJSON(&json) == nil {
-		//TODO:
-		// move validation method to URL model
 		for _, value := range json.Urls {
 			res, err := this.url.Save(value)
 			if err != nil {
 				goto ERROR
 			}
-			
+
 			value = res
 		}
 
@@ -65,10 +62,10 @@ func (this *URLController) MultiEncode(c *gin.Context) {
 			"message": "Bad Request",
 		})
 	}
-	
+
 ERROR:
 	c.JSON(http.StatusBadRequest, gin.H{
-		"status": http.StatusBadRequest,
+		"status":  http.StatusBadRequest,
 		"message": "Bad Request",
 	})
 }
@@ -91,11 +88,11 @@ func (this *URLController) MultiDecode(c *gin.Context) {
 		//map(json.Urls, func(i) { this.url.Find(i) });
 		c.JSON(http.StatusOK, gin.H{
 			"status": http.StatusOK,
-			"urls": json.Urls,
+			"urls":   json.Urls,
 		})
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"status": http.StatusBadRequest,
+			"status":  http.StatusBadRequest,
 			"message": "Bad Request",
 		})
 	}
