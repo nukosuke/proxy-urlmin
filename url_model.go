@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"log"
 	validator "github.com/asaskevich/govalidator"
 	"github.com/garyburd/redigo/redis"
 )
@@ -17,16 +18,21 @@ type URL struct {
 }
 
 func NewURL(redis_connection *redis.Conn) *URL {
+	if redis_connection == nil {
+		log.Fatal("Invalid Redis Connection")
+	}
+	
 	this := new(URL)
 	this.conn = redis_connection
 	return this
 }
 
 func (this *URL) Save(url string) (string, error) {
-	if !this.validate(url) {
+	if !this.validateUrl(url) {
 		return "", errors.New("URL validation error")
 	}
 
+	// 次のURL IDの払い出し
 	id := ""
 	for i := 9; i >= 0; i-- {
 		id += string(URLCharacter[this.index[i]])
@@ -52,15 +58,35 @@ func (this *URL) Save(url string) (string, error) {
 		}
 	}
 
-	return id, nil
+	_, err := this.conn.Do("SET", *id, *url)
+	if err != nil {
+		return "", errors.New("Failed to save url to KVS")
+	} else {
+		return id, nil
+	} 
+	
+	
 }
 
-func (this *URL) Find(url string) {
+func (this *URL) FindById(url string) (string, error) {
 	//TODO: validate id
 	//find from redis
-	//return
+	//if notfound {
+	//	return "", errors.New("Not Found")
+	//}
+	return "", nil
 }
 
-func (this *URL) validate(url_string string) bool {
+func (this *URL) FindByUrl(url string) {
+	//
+}
+
+func (this *URL) validateUrl(url_string string) bool {
 	return validator.IsURL(url_string)
+}
+
+
+// TODO
+func (this *URL) validateId(url_id string) bool {
+	return true
 }

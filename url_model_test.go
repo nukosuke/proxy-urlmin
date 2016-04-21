@@ -2,7 +2,9 @@ package main
 
 import (
 	"testing"
+	"github.com/garyburd/redigo/redis"
 )
+
 
 func TestSave(t *testing.T) {
 	m := NewURL(nil)

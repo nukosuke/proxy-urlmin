@@ -8,7 +8,6 @@ import (
 )
 
 type URLController struct {
-	//redis connection
 	url *URL
 }
 
