@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin/binding"
+	"github.com/garyburd/redigo/redis"
 	"net/http"
 )
 
@@ -11,9 +12,9 @@ type URLController struct {
 	url *URL
 }
 
-func NewURLController() *URLController {
+func NewURLController(redis_connection *redis.Conn) *URLController {
 	this := new(URLController)
-	this.url = NewURL()
+	this.url = NewURL(redis_connection)
 	return this
 }
 
@@ -70,9 +71,11 @@ ERROR:
 func (this *URLController) Decode(c *gin.Context) {
 	var json DecodeRequest
 	if c.BindJSON(&json) == nil {
+		//res, err := URL.Find(json.Url)
+		
 		c.JSON(http.StatusOK, gin.H{
 			"status": http.StatusOK,
-			"url":    "http://example.com",
+			"url":    json.Url,
 		})
 	}
 	//this.url.Find()

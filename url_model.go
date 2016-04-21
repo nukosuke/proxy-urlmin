@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	validator "github.com/asaskevich/govalidator"
+	"github.com/garyburd/redigo/redis"
 )
 
 //URL ID = 10桁
@@ -12,10 +13,12 @@ const URLAvailable = 69
 
 type URL struct {
 	index [10]int8 //0~68
+	conn *redis.Conn
 }
 
-func NewURL() *URL {
+func NewURL(redis_connection *redis.Conn) *URL {
 	this := new(URL)
+	this.conn = redis_connection
 	return this
 }
 

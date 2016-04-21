@@ -3,16 +3,23 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"log"
+	"github.com/garyburd/redigo/redis"
 )
 
 func main() {
 	router := gin.Default()
 	router.LoadHTMLFiles("index.html")
-	//TODO:
-	// create redis connection
 
-	// NewURLController(redis)
-	var ctrl = NewURLController()
+	// create redis connection
+	conn, err := redis.Dial("tcp", ":6379")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer conn.Close()
+
+	// create controllers
+	var ctrl = NewURLController(&conn)
 
 	// index page
 	router.GET("/", func(c *gin.Context) {
